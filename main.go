@@ -6,16 +6,16 @@ import (
 	"net/http"
 )
 
-func hellohandler(writer http.ResponseWriter, request *http.Request) {
+func helloHandler(writer http.ResponseWriter, request *http.Request) {
 	if request.URL.Path != "hello" {
-		http.Error(writer,"404 not found ",http.StatusNotFound)
+		http.Error(writer, "404 not found ", http.StatusNotFound)
 		return
 	}
 	if request.Method != "GET" {
-		http.Error(writer,"method is not supported",http.StatusNotFound)
+		http.Error(writer, "method is not supported", http.StatusNotFound)
 		return
 	}
-	fmt.Fprintf(writer,"hello!")
+	fmt.Fprintf(writer, "hello!")
 }
 
 func formHandler(writer http.ResponseWriter, request *http.Request) {
@@ -30,17 +30,16 @@ func formHandler(writer http.ResponseWriter, request *http.Request) {
 	fmt.Fprintf(writer, "Address = %s\n", address)
 }
 
-func main()  {
+func main() {
 
 	fileServer := http.FileServer(http.Dir("./static"))
-	http.Handle("/",fileServer)
-	http.HandleFunc("/form",formHandler)
-	http.HandleFunc("/hello",hellohandler)
+	http.Handle("/", fileServer)
+	http.HandleFunc("/form", formHandler)
+	http.HandleFunc("/hello", helloHandler)
 
 	fmt.Printf("Starting server at port 8080 \n")
-	if err := http.ListenAndServe(":8080",nil); err != nil{
+	if err := http.ListenAndServe(":8080", nil); err != nil {
 		log.Fatal(err)
-	}
+	} 
 
 }
-
