@@ -7,7 +7,7 @@ import (
 )
 
 func helloHandler(writer http.ResponseWriter, request *http.Request) {
-	if request.URL.Path != "hello" {
+	if request.URL.Path != "/hello" {
 		http.Error(writer, "404 not found ", http.StatusNotFound)
 		return
 	}
@@ -40,6 +40,6 @@ func main() {
 	fmt.Printf("Starting server at port 8080 \n")
 	if err := http.ListenAndServe(":8080", nil); err != nil {
 		log.Fatal(err)
-	} 
+	}
 
 }
